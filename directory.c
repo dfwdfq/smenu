@@ -47,7 +47,7 @@ void read_path(void)
   {
     if(!read_dir(token))
       {	
-	fprintf(stderr,"smenu error: failed to read '%s' directory!\n");
+	fprintf(stderr,"smenu error: failed to read '%s' directory!\n",dir);
       }
     
     token = strtok(NULL,":");    
@@ -124,7 +124,7 @@ int get_fullpath(char *bin, char **output)
     match_buf[len] = '\0';
     if(access(match_buf,F_OK | X_OK) == 0)
       {
-	(*output) = malloc(strlen(match_buf));
+	(*output) = malloc(strlen(match_buf)+1);
 	if(!*output)return 0;
 	strcpy(*output,match_buf);
 	return 1;
