@@ -25,10 +25,16 @@ int main(int argc, char** argv)
   while(!WindowShouldClose())
     {
       int input_status = read_input(matches_amount);
-      if(input_status == 1)
-	{
+      if(input_status == 1 && matches != NULL)
+	{	  
 	  //launch app
-	}
+	  char* output = NULL;
+	  if(get_fullpath(matches[current_selection],&output))
+	    {
+	      launch_process(output);
+	    }
+	  else break; //something went wrong
+	}	
       else if(input_status == 0)
 	{
 	  free(matches);
