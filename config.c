@@ -1,7 +1,8 @@
 #include"config.h"
 
-unsigned int top = 0,
-             width = 200,
+unsigned int top    = 10,
+             left   = 10,
+             width  = 500,
              height = 300;
 
 unsigned int font_size = 14;
@@ -16,12 +17,15 @@ void parse_argv(int argc, char **argv)
   opterr = 0;
   
   int c;
-  while((c = getopt(argc,argv,"t:w:h:")) != -1)
+  while((c = getopt(argc,argv,"t:w:h:l:")) != -1)
     {
       switch (c)
 	{
 	case 't':
 	  top = atoi(optarg);
+	  break;
+	case 'l':
+	  left = atoi(optarg);
 	  break;
 	case 'w':
 	  width = atoi(optarg);

@@ -17,7 +17,7 @@
 
 #define STR_BUFFER_LEN 1024
 
-extern unsigned int top, width, height;
+extern unsigned int top,left, width, height;
 extern unsigned int font_size;
 
 extern Color background_color, selection_color, text_color, selected_text_color;
