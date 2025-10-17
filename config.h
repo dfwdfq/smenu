@@ -19,6 +19,8 @@ extern unsigned int top, left, width, height;
 extern unsigned int font_size;
 extern unsigned int x_start,y_start; //position of user's query
 
+#define GET_MAX_VISIBLE(text_h) (int)((height-y_start-2)/text_h)-1
+
 extern Color background_color,
              selection_color,
              text_color,
