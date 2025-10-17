@@ -1,6 +1,7 @@
 #ifndef DIRECTORY_H
 #define DIRECTORY_H
 
+#include"config.h"
 #include<dirent.h>
 #include<stdio.h>
 #include<stdlib.h>
