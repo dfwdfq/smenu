@@ -1,7 +1,7 @@
 #include"directory.h"
 
 char** bins;
-int bins_amount =256;
+int bins_amount = STR_BUF_LEN;
 int current_dir_entry = 0;
 
 char* PATH = NULL;
@@ -32,7 +32,7 @@ void read_path(void)
   else
     for(int i = 0;i<bins_amount;++i)
       {
-	bins[i] = malloc(256);
+	bins[i] = malloc(STR_BUF_LEN);
 	if(!bins[i])
 	  {
 	    fprintf(stderr,"smenu error: failed malloc...");
@@ -47,7 +47,7 @@ void read_path(void)
   {
     if(!read_dir(token))
       {	
-	fprintf(stderr,"smenu error: failed to read '%s' directory!\n",dir);
+	fprintf(stderr,"smenu error: failed to read '%s' directory!\n",token);
       }
     
     token = strtok(NULL,":");    
@@ -82,7 +82,7 @@ int read_dir(char* dir)
 	    strcpy(bins[current_dir_entry++],_dir->d_name);	    
 	  else
 	    {	  
-	      char** temp = (char**)realloc(bins,sizeof(char*)*(bins_amount+256));
+	      char** temp = (char**)realloc(bins,sizeof(char*)*(bins_amount+STR_BUF_LEN));
 	      if(!temp)
 	      {
 	        free_bins();
@@ -91,9 +91,9 @@ int read_dir(char* dir)
 	      }
 	  
 	      bins = temp;
-	      for(int i = bins_amount;i<bins_amount+256;++i)
+	      for(int i = bins_amount;i<bins_amount+STR_BUF_LEN;++i)
 		{
-		  bins[i] = malloc(256);
+		  bins[i] = malloc(STR_BUF_LEN);
 		  if(!bins[i])
 		    {
 		      fprintf(stderr,"smenu error: failed memory allocation...\n");
@@ -103,7 +103,7 @@ int read_dir(char* dir)
 		      return 0;
 		    }
 		}
-	      bins_amount+=256;
+	      bins_amount+=STR_BUF_LEN;
 	      strcpy(bins[current_dir_entry++],_dir->d_name);
 	    }
 	}
@@ -117,7 +117,7 @@ int get_fullpath(char *bin, char **output)
   strcpy(PATH_copy,PATH);
   
   char* token = strtok(PATH,":");
-  char match_buf[512];
+  char match_buf[STR_BUF_LEN];
   while(token != NULL)
   {
     int len = sprintf(match_buf,"%s/%s",token,bin);
