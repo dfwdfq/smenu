@@ -9,6 +9,7 @@
 extern char input[STR_BUFFER_LEN+1];
 extern int letter_counter;
 
+
 extern int read_input(void);
 
 #endif

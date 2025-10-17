@@ -8,6 +8,12 @@ int read_input(void)
 {
   if(IsKeyPressed(KEY_ENTER))return 1;
   
+  if(IsKeyPressed(KEY_BACKSPACE) && letter_counter != 0)
+    {
+      letter_counter--;
+      input[letter_counter] = '\0';
+    }
+  
   int key = GetCharPressed();
   if((key >= 32) && (key <= 126))//allow only printable characters
     {
