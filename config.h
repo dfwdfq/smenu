@@ -15,10 +15,14 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-extern unsigned int top,left, width, height;
+extern unsigned int top, left, width, height;
 extern unsigned int font_size;
+extern unsigned int x_start,y_start; //position of user's query
 
-extern Color background_color, selection_color, text_color, selected_text_color;
+extern Color background_color,
+             selection_color,
+             text_color,
+             selected_text_color;
 
 
 extern void parse_argv(int argc, char** argv);

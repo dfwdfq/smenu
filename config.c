@@ -7,6 +7,9 @@ unsigned int top    = 10,
 
 unsigned int font_size = 32;
 
+unsigned int x_start  = 15,
+             y_start  = 15;
+
 Color background_color = BLACK;
 Color selection_color = BLUE;
 Color text_color = WHITE;
