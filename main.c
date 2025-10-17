@@ -12,6 +12,7 @@ int main(int argc, char** argv)
   SetWindowPosition(left,top);
   SetTargetFPS(60);
   DisableCursor();
+  SetTraceLogLevel(LOG_NONE);
   SetWindowState(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST);
 
   Font df = GetFontDefault();
