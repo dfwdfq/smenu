@@ -39,12 +39,14 @@ void read_path(void)
 	    exit(-2);
 	  }
       }
-    
-  char* token = strtok(PATH,":");
+
+  char PATH_copy[strlen(PATH)+1];
+  strcpy(PATH_copy,PATH);
+  char* token = strtok(PATH_copy,":");
   while(token != NULL)
   {
     if(!read_dir(token))
-      {
+      {	
 	fprintf(stderr,"smenu error: failed to read '%s' directory!\n");
       }
     
@@ -108,4 +110,27 @@ int read_dir(char* dir)
     }
   closedir(d);
   return 1;
+}
+int get_fullpath(char *bin, char **output)
+{
+  char PATH_copy[strlen(PATH)+1];
+  strcpy(PATH_copy,PATH);
+  
+  char* token = strtok(PATH,":");
+  char match_buf[512];
+  while(token != NULL)
+  {
+    int len = sprintf(match_buf,"%s/%s",token,bin);
+    match_buf[len] = '\0';
+    if(access(match_buf,F_OK | X_OK) == 0)
+      {
+	(*output) = malloc(strlen(match_buf));
+	if(!*output)return 0;
+	strcpy(*output,match_buf);
+	return 1;
+      }
+    
+    token = strtok(NULL,":");    
+  }
+  return 0;
 }
