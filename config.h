@@ -15,7 +15,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define STR_BUFFER_LEN 1024
+
 
 extern unsigned int top,left, width, height;
 extern unsigned int font_size;

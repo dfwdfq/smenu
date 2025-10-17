@@ -5,7 +5,7 @@ unsigned int top    = 10,
              width  = 500,
              height = 300;
 
-unsigned int font_size = 14;
+unsigned int font_size = 32;
 
 Color background_color = BLACK;
 Color selection_color = BLUE;
