@@ -12,21 +12,8 @@
 #define CONFIG_H
 #include<raylib.h>  
 #include<getopt.h>  
-#include<dirent.h>
-#include<stdio.h>
 #include<stdlib.h>
-#include<string.h>
-#include<limits.h>
-
-extern char* PATH;
-extern char** bins; //contains all executable files from $PATH
-extern int bins_amount;
-extern int current_dir_entry;
-
-extern void free_bins(void);
-
-extern void read_path(void);
-extern int read_dir(char* dir);
+#include<stdio.h>
 
 extern unsigned int top,left, width, height;
 extern unsigned int font_size;

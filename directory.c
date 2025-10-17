@@ -1,0 +1,111 @@
+#include"directory.h"
+
+char** bins;
+int bins_amount =256;
+int current_dir_entry = 0;
+
+char* PATH = NULL;
+
+
+extern void free_bins(void)
+{
+  for(int i = 0;i<bins_amount;++i)
+    {
+      free(bins[i]);
+    }
+  free(bins);
+}
+void read_path(void)
+{
+  PATH = getenv("PATH");
+  if(!PATH)
+    {
+      fprintf(stderr,"smenu error: failed to read $PATH!\n");
+      exit(-2);
+    }
+  bins = malloc(sizeof(char*)*bins_amount);
+  if(!bins)
+    {
+      fprintf(stderr,"smenu error: failed malloc...");
+      exit(-2);
+    }
+  else
+    for(int i = 0;i<bins_amount;++i)
+      {
+	bins[i] = malloc(256);
+	if(!bins[i])
+	  {
+	    fprintf(stderr,"smenu error: failed malloc...");
+	    exit(-2);
+	  }
+      }
+    
+  char* token = strtok(PATH,":");
+  while(token != NULL)
+  {
+    if(!read_dir(token))
+      {
+	fprintf(stderr,"smenu error: failed to read '%s' directory!\n");
+      }
+    
+    token = strtok(NULL,":");    
+  }
+
+  //free unused space
+  if(current_dir_entry < bins_amount)
+    {
+      for(int i = current_dir_entry+1;i<bins_amount;++i)
+	free(bins[i]);
+      bins_amount = current_dir_entry;
+    }
+
+  //sort alphabeticaly
+  qsort(bins,bins_amount,sizeof(char*),_strcmp);
+}
+int read_dir(char* dir)
+{
+  DIR* d = opendir(dir);
+  if(!d)
+    {
+      fprintf(stderr,"smenu error: failed to open '%s' directory!\n");
+      return 0;
+    }
+  struct dirent *_dir;
+  while((_dir = readdir(d)) != NULL)
+    {
+      if(_dir->d_type == DT_REG ||
+	 _dir->d_type == DT_LNK)	
+	{	  
+	  if(current_dir_entry < bins_amount)	    
+	    strcpy(bins[current_dir_entry++],_dir->d_name);	    
+	  else
+	    {	  
+	      char** temp = (char**)realloc(bins,sizeof(char*)*(bins_amount+256));
+	      if(!temp)
+	      {
+	        free_bins();
+		closedir(d);
+		return 0;
+	      }
+	  
+	      bins = temp;
+	      for(int i = bins_amount;i<bins_amount+256;++i)
+		{
+		  bins[i] = malloc(256);
+		  if(!bins[i])
+		    {
+		      fprintf(stderr,"smenu error: failed memory allocation...\n");
+		      for(int j = bins_amount;j<i;++j)free(bins[j]);
+		      free_bins();
+		      closedir(d);
+		      return 0;
+		    }
+		}
+	      bins_amount+=256;
+	      strcpy(bins[current_dir_entry++],_dir->d_name);
+	    }
+	}
+    }
+  closedir(d);
+  return 1;
+}
