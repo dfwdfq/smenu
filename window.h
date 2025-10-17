@@ -3,12 +3,9 @@
 #include"config.h"
 #include<raylib.h>
 
-#define STR_BUFFER_LEN 1024
-
-extern char input[STR_BUFFER_LEN+1];
+extern char input[STR_BUF_LEN];
 extern int letter_counter;
-
-extern int current_selection;
+extern int current_selection; //changed by UP/DOWN arrows or j,k
 
 extern int read_input(int matches_amount);
 #endif
