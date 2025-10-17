@@ -2,9 +2,9 @@
 
 char input[STR_BUFFER_LEN+1] = "\0";
 int letter_counter = 0;
+int current_selection = -1;
 
-
-int read_input(void)
+int read_input(int matches_amount)
 {
   if(IsKeyPressed(KEY_ENTER))return 1;
   
@@ -12,6 +12,17 @@ int read_input(void)
     {
       letter_counter--;
       input[letter_counter] = '\0';
+      return 0;
+    }
+  if(IsKeyReleased(KEY_DOWN) && matches_amount > 0)
+    {
+      if(current_selection + 1 < matches_amount)
+	current_selection++;
+      return -1;
+    }
+  if(IsKeyReleased(KEY_UP) && current_selection != -1)
+    {
+      current_selection--;
     }
   
   int key = GetCharPressed();
@@ -22,8 +33,8 @@ int read_input(void)
       input[letter_counter] = '\0';
     }
 
-  if(key <= 0)return 0;
+  if(key <= 0)return -1;
   if(letter_counter == STR_BUFFER_LEN) return 1;
   
-  return -1;
+  return 0;
 }
