@@ -134,3 +134,8 @@ int get_fullpath(char *bin, char **output)
   }
   return 0;
 }
+void launch_process(char* full_path)
+{
+  execv(full_path, (char *[]){ (char *)full_path, NULL });
+  exit(127);
+}

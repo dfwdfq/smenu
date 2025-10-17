@@ -22,4 +22,5 @@ extern int read_dir(char* dir); //read files in dir
 extern void free_bins(void);
 
 extern int get_fullpath(char* bin, char**output);
+extern void launch_process(char* full_path);
 #endif
