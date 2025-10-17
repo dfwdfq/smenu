@@ -15,6 +15,9 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+//based on /usr/include/bits/posix1_lim.h
+#define STR_BUF_LEN 256 //len of dirent's d_name size
+
 extern unsigned int top, left, width, height;
 extern unsigned int font_size;
 extern unsigned int x_start,y_start; //position of user's query
@@ -22,6 +25,7 @@ extern unsigned int x_start,y_start; //position of user's query
 #define GET_MAX_VISIBLE(text_h) (int)((height-y_start-2)/text_h)-1
 
 extern Color selection_color,
+             background_color,
              text_color;
 
 
