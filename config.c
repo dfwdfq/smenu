@@ -10,10 +10,10 @@ unsigned int font_size = 32;
 unsigned int x_start  = 15,
              y_start  = 15;
 
-Color background_color = BLACK;
-Color selection_color = BLUE;
-Color text_color = WHITE;
-Color selected_text_color = YELLOW;
+Color background_color = {10,10,21,150};
+Color selection_color = {231,207,255,255};
+Color text_color = {240,240,255,255};
+
 
 void parse_argv(int argc, char **argv)
 {  
