@@ -75,8 +75,9 @@ int main(int argc, char** argv)
 	    }
 	}
 		
-      BeginDrawing();
+      BeginDrawing();      
       ClearBackground(background_color);
+      draw_border();
 
 
       DrawText(input,x_start,y_start,font_size,text_color);

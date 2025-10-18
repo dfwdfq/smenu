@@ -41,3 +41,10 @@ int read_input(int matches_amount)
   
   return 0;
 }
+void draw_border(void)
+{
+  DrawRectangle(4,4,width-4,2,(Color){58,58,85,255});
+  DrawRectangle(4,4,2,height-4,(Color){58,58,85,255});
+  DrawRectangle(width-2,4,4,height-4,(Color){58,58,85,255});
+  DrawRectangle(4,height-2,width-4,2,(Color){58,58,85,255});
+}
