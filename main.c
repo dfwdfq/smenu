@@ -7,14 +7,18 @@ int main(int argc, char** argv)
 {
   parse_argv(argc,argv);
   read_path();
-  
+
+  //configure window
   InitWindow(width,height,"smenu");
   SetWindowPosition(left,top);
   SetTargetFPS(60);
   DisableCursor();
   SetTraceLogLevel(LOG_NONE);
   SetWindowState(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST);
-
+  ///
+  
+  //Font size is required to get height of text and then
+  //it is possible to determine max amount of visible entries
   Font df = GetFontDefault();
   Vector2 size = MeasureTextEx(df,"f",font_size,1);  
   int y_match_start = y_start+(int)size.y+2;
@@ -29,6 +33,8 @@ int main(int argc, char** argv)
       if(input_status == 1 && matches != NULL)
 	{	  
 	  //launch app
+
+	  //get the full path of selected match
 	  char* output = NULL;
 	  if(get_fullpath(matches[current_selection],&output))
 	    {
