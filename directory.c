@@ -70,7 +70,7 @@ int read_dir(char* dir)
   DIR* d = opendir(dir);
   if(!d)
     {
-      fprintf(stderr,"smenu error: failed to open '%s' directory!\n");
+      fprintf(stderr,"smenu error: failed to open '%s' directory!\n",dir);
       return 0;
     }
   struct dirent *_dir;
