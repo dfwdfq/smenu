@@ -13,6 +13,7 @@
 #include<raylib.h>  
 #include<getopt.h>  
 #include<stdlib.h>
+#include<string.h>
 #include<stdio.h>
 
 //based on /usr/include/bits/posix1_lim.h
@@ -28,6 +29,8 @@ extern Color selection_color,
              background_color,
              text_color;
 
+#define check_hex_color_len if(strlen(optarg) != 6){ fprintf(stderr,"Error: hex color should have 6 digits!\n");exit(-1);}
+#define parse_hex_color(str) sscanf(str, "%02x%02x%02x", &r, &g, &b);
 
 extern void parse_argv(int argc, char** argv);
 

@@ -18,9 +18,10 @@ Color text_color = {240,240,255,255};
 void parse_argv(int argc, char **argv)
 {  
   opterr = 0;
-  
+
+  int r,g,b;
   int c;
-  while((c = getopt(argc,argv,"t:w:h:l:")) != -1)
+  while((c = getopt(argc,argv,"t:w:h:l:b:s:c:")) != -1)
     {
       switch (c)
 	{
@@ -35,6 +36,27 @@ void parse_argv(int argc, char **argv)
 	  break;
 	case 'h':
 	  height = atoi(optarg);
+	  break;
+	case 'b':
+	  check_hex_color_len;
+	  parse_hex_color(optarg);
+	  background_color.r =r;
+	  background_color.g =g;
+	  background_color.b =b;
+	  break;
+	case 's':
+	  check_hex_color_len;
+	  parse_hex_color(optarg);
+	  selection_color.r =r;
+	  selection_color.g =g;
+	  selection_color.b =b;
+	  break;
+	case 'c':
+	  check_hex_color_len;
+	  parse_hex_color(optarg);
+	  text_color.r =r;
+	  text_color.g =g;
+	  text_color.b =b;
 	  break;
 	case '?':
 	  {
