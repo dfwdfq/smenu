@@ -1,3 +1,4 @@
+#define _DEFAULT_SOURCE
 #include"directory.h"
 
 char** bins;
@@ -116,7 +117,7 @@ int get_fullpath(char *bin, char **output)
   char PATH_copy[strlen(PATH)+1];
   strcpy(PATH_copy,PATH);
   
-  char* token = strtok(PATH,":");
+  char* token = strtok(PATH_copy,":");
   char match_buf[STR_BUF_LEN];
   while(token != NULL)
   {
@@ -136,6 +137,14 @@ int get_fullpath(char *bin, char **output)
 }
 void launch_process(char* full_path)
 {
-  execv(full_path, (char *[]){ (char *)full_path, NULL });
-  exit(127);
+    if (access(full_path, X_OK) != 0)
+      {
+        perror("Not executable");
+        exit(126);
+    }
+
+    execv(full_path, (char *[]){ full_path, NULL });
+
+    perror("execv failed");
+    exit(127);
 }

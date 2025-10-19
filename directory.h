@@ -7,6 +7,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<unistd.h>
+#include<errno.h>
 
 extern char* PATH;             //$PATH
 extern char** bins;            //all executable files' names
