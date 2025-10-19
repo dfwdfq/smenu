@@ -18,4 +18,9 @@ make
 -l  x position
 -w  window width
 -h  window height
+-b  background color
+-s  selection color
+-c  text color
+
+NOTE: color should be repesented as hex, but without #. Just 6 digits
 ```
