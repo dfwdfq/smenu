@@ -73,14 +73,34 @@ int read_dir(char* dir)
       fprintf(stderr,"smenu error: failed to open '%s' directory!\n",dir);
       return 0;
     }
+
+  struct PathSet* item_ptr; //use it as lookup element
+
   struct dirent *_dir;
   while((_dir = readdir(d)) != NULL)
     {
       if(_dir->d_type == DT_REG ||
 	 _dir->d_type == DT_LNK)	
 	{	  
-	  if(current_dir_entry < bins_amount)	    
-	    strcpy(bins[current_dir_entry++],_dir->d_name);	    
+	  if(current_dir_entry < bins_amount)
+	    {
+	      /*
+		Before adding path to bins
+		check was it added already.
+	       */	      	    
+	      HASH_FIND_STR(p_set,_dir->d_name,item_ptr);
+	      if(item_ptr == NULL)
+		{
+		  //add to hash
+		  struct PathSet* _item;
+		  _item = malloc(sizeof *_item);
+		  strcpy(_item->element,_dir->d_name);
+		  HASH_ADD_STR(p_set,element,_item);
+
+		  //add to bins
+		  strcpy(bins[current_dir_entry++],_dir->d_name);
+		}
+	    }
 	  else
 	    {	  
 	      char** temp = (char**)realloc(bins,sizeof(char*)*(bins_amount+STR_BUF_LEN));
@@ -104,8 +124,24 @@ int read_dir(char* dir)
 		      return 0;
 		    }
 		}
-	      bins_amount+=STR_BUF_LEN;
-	      strcpy(bins[current_dir_entry++],_dir->d_name);
+
+	      HASH_FIND_STR(p_set,_dir->d_name,item_ptr);
+	      if(item_ptr == NULL)
+		{
+		  //add to hash
+		  struct PathSet* _item;
+		  _item = malloc(sizeof *_item);
+		  strcpy(_item->element,_dir->d_name);
+		  HASH_ADD_STR(p_set,element,_item);
+
+		  //add to bins
+		  bins_amount+=STR_BUF_LEN;
+		  strcpy(bins[current_dir_entry++],_dir->d_name);
+		}
+	      else
+		{
+		  printf("%s\n","yes!");
+		}
 	    }
 	}
     }

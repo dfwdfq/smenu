@@ -2,12 +2,15 @@
 #define DIRECTORY_H
 
 #include"config.h"
+#include"set.h"
 #include<dirent.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include<unistd.h>
 #include<errno.h>
+
+static struct PathSet* p_set = NULL;//set that is used to avoid duplicates
 
 extern char* PATH;             //$PATH
 extern char** bins;            //all executable files' names
